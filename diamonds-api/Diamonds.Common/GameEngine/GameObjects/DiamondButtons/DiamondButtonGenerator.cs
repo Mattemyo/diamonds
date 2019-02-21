@@ -7,7 +7,9 @@ using Diamonds.Common.GameEngine.DiamondGenerator;
 namespace Diamonds.Common.GameEngine.GameObjects.DiamondButtons {
     public class DiamondButtonGenerator : IGameObjectGenerator
     {
-        public DiamondButtonGenerator(){
+        private readonly IDiamondGeneratorService generator;
+        public DiamondButtonGenerator(IDiamondGeneratorService generator){
+            this.generator=generator;
         }
         public List<BaseGameObject> GetGameObjectList(Board board)
         {
@@ -22,9 +24,9 @@ namespace Diamonds.Common.GameEngine.GameObjects.DiamondButtons {
 
         public List<BaseGameObject> RegenerateObjects(Board board)
         {
-            
+                Console.Out.WriteLine(generator.ToString()); 
                  var diamondResetButtons= new List<BaseGameObject>()  {
-                    new DiamondButton(board.GetRandomEmptyPosition())
+                    new DiamondButton(board.GetRandomEmptyPosition(),generator)
                 };
 
             return diamondResetButtons;

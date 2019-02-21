@@ -16,7 +16,7 @@ namespace Diamonds.GameEngine
         {
             _generators = new List<IGameObjectGenerator>(){
             new TeleporterGenerator(),
-            new DiamondButtonGenerator()
+            new DiamondButtonGenerator(boardDiamondManager)
         };
 
 

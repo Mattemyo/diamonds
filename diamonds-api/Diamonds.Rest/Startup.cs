@@ -45,7 +45,9 @@ namespace Diamonds.Rest
             services.AddScoped<IStorage, MongoDBStorage>();
             services.AddScoped<IMoveService, MoveService>();
             services.AddScoped<IDiamondGeneratorService, DiamondGeneratorService>();
-            services.AddScoped<IGameObjectGeneratorService, GameObjectGeneratorService>();
+            //services.AddScoped<IGameObjectGeneratorService, GameObjectGeneratorService>();
+            services.AddTransient<IGameObjectGeneratorService>(sp =>
+                new GameObjectGeneratorService(sp.GetService<IDiamondGeneratorService>())); //Was not able to extract this from IServiceProvider.
 
             // Add framework services.
             services.AddMvc();
