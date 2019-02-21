@@ -10,13 +10,18 @@ namespace Diamonds.GameEngine
 
     public class GameObjectGeneratorService : IGameObjectGeneratorService
     {
+
+
+        
+        private readonly IDiamondGeneratorService _boardDiamondManager;
         public GameObjectGeneratorService(
            IDiamondGeneratorService boardDiamondManager
         )
         {
+            _boardDiamondManager = boardDiamondManager;
             _generators = new List<IGameObjectGenerator>(){
             new TeleporterGenerator(),
-            new DiamondButtonGenerator(boardDiamondManager)
+            new DiamondButtonGenerator()
         };
 
 

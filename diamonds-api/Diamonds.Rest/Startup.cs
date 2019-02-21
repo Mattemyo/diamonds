@@ -43,11 +43,11 @@ namespace Diamonds.Rest
             MongoDBStorage.IsSSL = Convert.ToBoolean(Configuration.GetValue<bool>("MongoDb:IsSSL"));
 
             services.AddScoped<IStorage, MongoDBStorage>();
-            services.AddScoped<IMoveService, MoveService>();
+
             services.AddScoped<IDiamondGeneratorService, DiamondGeneratorService>();
-            //services.AddScoped<IGameObjectGeneratorService, GameObjectGeneratorService>();
-            services.AddTransient<IGameObjectGeneratorService>(sp =>
-                new GameObjectGeneratorService(sp.GetService<IDiamondGeneratorService>())); //Was not able to extract this from IServiceProvider.
+            services.AddScoped<IGameObjectGeneratorService, GameObjectGeneratorService>();
+            services.AddScoped<IMoveService, MoveService>();
+
 
             // Add framework services.
             services.AddMvc();

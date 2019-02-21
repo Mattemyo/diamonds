@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using Diamonds.Common.Entities;
 using System.Linq;
+using Diamonds.Common.GameEngine.GameObjects;
 
 namespace Diamonds.GameEngine
 {
@@ -11,13 +12,21 @@ namespace Diamonds.GameEngine
     {
         const decimal MinRatioOfDiamonds = 0.01m;
         const decimal MaxRatioOfDiamonds = 0.2m;
-        public bool NeedToGenerateDiamonds(Board board){
+
+
+        private readonly IGameObjectGeneratorService _gameobjectGeneratorService;
+        public DiamondGeneratorService(IGameObjectGeneratorService gameobjectGeneratorService)
+        {
+            _gameobjectGeneratorService = gameobjectGeneratorService;
+        }
+        public bool NeedToGenerateDiamonds(Board board)
+        {
 
             var numberOfBoardCells = board.Height * board.Width;
 
-            var currentRatioOfDiamonds = (decimal) board.Diamonds.Count() / numberOfBoardCells;
+            var currentRatioOfDiamonds = (decimal)board.Diamonds.Count() / numberOfBoardCells;
 
-             return  currentRatioOfDiamonds < MinRatioOfDiamonds;
+            return currentRatioOfDiamonds < MinRatioOfDiamonds;
 
         }
 
@@ -33,7 +42,7 @@ namespace Diamonds.GameEngine
 
             var diamondPositions = board.Diamonds.ToList();
 
-            while(diamondPositions.Count < maxNumberOfDiamonds)
+            while (diamondPositions.Count < maxNumberOfDiamonds)
             {
                 var diamondPositionToAdd = board.GetRandomEmptyPosition();
                 diamondPositions.Add(diamondPositionToAdd);
@@ -46,5 +55,7 @@ namespace Diamonds.GameEngine
         {
             return rangeMin <= numberToCheck && numberToCheck <= rangeMax;
         }
+
+
     }
 }
